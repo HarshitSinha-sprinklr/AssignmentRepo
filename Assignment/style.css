@@ -1,0 +1,92 @@
+.tileImage {  
+    width: 40px;  
+    height: 40px;  
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: 15px;
+    border-radius: 5px;
+}  
+.tileClass{
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid;
+    border-style: none;
+    border-radius: 5px;
+    width: 300px;
+    height: 50px;
+    position: inherit;
+    white-space: nowrap;
+    top: 10px;
+    left: 0px;
+    align-items: center;
+
+    /* display: inline-block;  */
+}
+#anExample {
+    background-color: black;
+}
+
+.blue {
+    background-color: blue;
+}
+/* .tiles{
+    position: relative;
+    left: 300px;
+} */
+.tileText{
+    height: 3px;
+    display: inline-block;
+    position: relative;
+    left: 10px;
+    top: 0px;
+}
+#selectedTileImageEach{
+    position: absolute;
+    left: 350px;
+    top: 10px;
+    height: 800px;
+    width: 600px;
+    border-radius: 5px;
+}
+
+/* #selectedTileTitleEach{
+    position: absolute;
+    left: 450px;
+    top: 1000px;
+    height: 5px;
+    width: 600px;
+    text-align: center;
+} */
+#selectedTileTitle{
+    position: absolute;
+    /* left: 450px; */
+    top: 820px;
+    height: 25px;
+    width: 600px;
+    text-align: center;
+}
+
+.fullBody{
+    /* text-align: center;  */
+    display: flex;
+    /* align-items: center; */
+    /* align-self: center; */
+    align-content: center;
+    justify-items: center;
+    justify-self: center;
+    /* justify-content: center; */
+    /* place-items: center; */
+    /* vertical-align: center; */
+    line-height: 100%;
+    margin: auto;
+    position: relative;
+    /* left:   200px; */
+    /* right: 500px; */
+    /* left: 0px;
+    right: 300px; */
+    /* overflow: auto; */
+    width: 1000px;
+    height: 800px;
+    /* transform: translate(-50%, -50%); */
+}
