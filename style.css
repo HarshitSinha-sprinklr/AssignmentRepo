@@ -1,23 +1,26 @@
 .tileImage {  
-    width: 50px;  
+    width: 40px;  
     height: 40px;  
     text-align: center;
     display: inline-block;
     position: relative;
     top: 15px;
+    border-radius: 5px;
 }  
 .tileClass{
     padding: 10px;
     margin: 10px;
     border: 1px solid;
     border-style: none;
-    width: 400px;
+    border-radius: 5px;
+    width: 300px;
     height: 50px;
     position: relative;
     white-space: nowrap;
     top: 10px;
     align-items: center;
-    /* display: inline-block; */
+
+    /* display: inline-block;  */
 }
 #anExample {
     background-color: black;
@@ -39,21 +42,49 @@
 }
 #selectedTileImageEach{
     position: absolute;
-    left: 800px;
+    left: 450px;
     top: 10px;
     height: 600px;
     width: 600px;
+    border-radius: 5px;
 }
+
 #selectedTileTitleEach{
     position: absolute;
-    left: 800px;
+    left: 450px;
     top: 620px;
     height: 5px;
     width: 600px;
     text-align: center;
 }
-.fullBody{
+#selectedTileTitle{
     position: absolute;
-    align-items: center;
-    text-align: left;
+    left: 450px;
+    top: 620px;
+    height: 25px;
+    width: 600px;
+    text-align: center;
+}
+
+.fullBody{
+    /* text-align: center;  */
+    display: flex;
+    /* align-items: center; */
+    /* align-self: center; */
+    /* align-content: center; */
+    /* justify-items: center; */
+    /* justify-self: center; */
+    /* justify-content: center; */
+    /* place-items: center; */
+    /* vertical-align: center; */
+    /* line-height: 100%; */
+    /* margin: auto; */
+    position: absolute;
+    /* left:   200px; */
+    /* right: 500px; */
+    left: 300px;
+    overflow: auto;
+    width: 1500px;
+    height: 1000px;
+    /* transform: translate(-50%, -50%); */
 }

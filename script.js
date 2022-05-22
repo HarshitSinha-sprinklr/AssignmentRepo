@@ -22,11 +22,26 @@ let jsonFile = [
 ];
 let printText = document.querySelector(".tiles");
 var x = 0;
+let tilesTitleArray = [];
+
+shortenTile = (someString) => {
+    if(someString.length > 35){
+        someString = someString.substring(0,16) + "..." + someString.substring(someString.length -16);
+
+    }
+    return someString;
+}
 
 for(let each in jsonFile){
     let eachTileId = "tileId" + x;
-    printText.innerHTML = printText.innerHTML + `<div id="${eachTileId}" class="tileClass"><image src="${jsonFile[each].previewImage}" class="tileImage"> <p class="tileText">${jsonFile[each].title}</p></div>`;
-    //let tileSelector = "#" + ${eachTileId};
+    let eachTileTitleId = "tileTitleId" + x;
+    let tileTitle = jsonFile[each].title;
+    tilesTitleArray.push(tileTitle);
+
+    tileTitle = shortenTile(tilesTitleArray[x]);
+    console.log(tileTitle);
+    printText.innerHTML = printText.innerHTML + `<div id="${eachTileId}" class="tileClass"><image src="${jsonFile[each].previewImage}" class="tileImage"> <p class="tileText" id="${eachTileTitleId}">${tileTitle}</p></div>`;
+    
     x++;
 }
 x = 0;
@@ -34,12 +49,16 @@ x = 0;
 
 let initialSelectedElement = document.getElementById("tileId0");
 initialSelectedElement.style.backgroundColor = "blue";
-initialSelectedElement.style.color = "white";
+initialSelectedElement.style.color = "white"; 
+
 let initialSelectedElementImage = document.querySelector("#selectedTileImage");
 initialSelectedElementImage.innerHTML = `<img id="selectedTileImageEach" src="${jsonFile[0].previewImage}">`;
+
 let initialSelectedElementTitle = document.querySelector("#selectedTileTitle");
-initialSelectedElementTitle.innerHTML = `<p id="selectedTileTitleEach">${jsonFile[0].title}</p>`;
+initialSelectedElementTitle.innerText = tilesTitleArray[0];
+
 let previousSelectedElementId = "tileId0";
+
 
 
 for(let each in jsonFile){
@@ -56,11 +75,13 @@ for(let each in jsonFile){
 
             currentTile.style.backgroundColor = "blue";
             currentTile.style.color = "white";
+
             let selectedTileImage = document.querySelector("#selectedTileImage");
             selectedTileImage.innerHTML = `<img id="selectedTileImageEach" src="${jsonFile[each].previewImage}">`;
             
             let selectedTileTitle = document.querySelector("#selectedTileTitle");
-            selectedTileTitle.innerHTML = `<p id="selectedTileTitleEach">${jsonFile[each].title}</p>`;
+            let currentTileTitleNumber = parseInt(previousSelectedElementId.substring(6),10);
+            selectedTileTitle.innerText = tilesTitleArray[currentTileTitleNumber];
         },
         true
     );
@@ -76,7 +97,7 @@ window.addEventListener(
         
         let previousSelectedTileNumber = previousSelectedElementId.substring(6);
         previousSelectedTileNumber = parseInt(previousSelectedTileNumber, 10);
-        let selectedTileNumber , selectedTileId , selectedTile , selectedTileImage , selectedTileTitle;
+        let selectedTileNumber , selectedTileId , selectedTile , selectedTileImage , selectedTileTitle, currentTileTitleId;
         switch(event.keyCode){
             case 38:
                 selectedTileNumber = previousSelectedTileNumber === 0 ? jsonFile.length -1 : previousSelectedTileNumber - 1;
@@ -84,11 +105,14 @@ window.addEventListener(
                 selectedTile = document.getElementById(selectedTileId);
                 selectedTile.style.backgroundColor = "blue";
                 selectedTile.style.color = "white";
+
                 selectedTileImage = document.querySelector("#selectedTileImage");
                 selectedTileImage.innerHTML = `<img id="selectedTileImageEach" src="${jsonFile[selectedTileNumber].previewImage}">`;
                 
                 selectedTileTitle = document.querySelector("#selectedTileTitle");
-                selectedTileTitle.innerHTML = `<p id="selectedTileTitleEach">${jsonFile[selectedTileNumber].title}</p>`;
+                currentTileTitleId = "tileTitleId" + selectedTileNumber;
+                selectedTileTitle.innerText = tilesTitleArray[selectedTileNumber];
+
                 previousSelectedElementId = selectedTileId;
                 break;
             case 40:
@@ -97,23 +121,30 @@ window.addEventListener(
                 selectedTile = document.getElementById(selectedTileId);
                 selectedTile.style.backgroundColor = "blue";
                 selectedTile.style.color = "white";
+                
                 selectedTileImage = document.querySelector("#selectedTileImage");
                 selectedTileImage.innerHTML = `<img id="selectedTileImageEach" src="${jsonFile[selectedTileNumber].previewImage}">`;
                 
                 selectedTileTitle = document.querySelector("#selectedTileTitle");
-                selectedTileTitle.innerHTML = `<p id="selectedTileTitleEach">${jsonFile[selectedTileNumber].title}</p>`;
+                currentTileTitleId = "tileTitleId" + selectedTileNumber;
+                selectedTileTitle.innerText = tilesTitleArray[selectedTileNumber];
+
                 previousSelectedElementId = selectedTileId;
                 break;
         }
-
     },
     true
 );
 
-let currentTitle = document.getElementById("selectedTileTitle");
-currentTitle.addEventListener(
-    "click",
-    () => {
 
+let selectedTileTitle = document.getElementById("selectedTileTitle");
+selectedTileTitle.addEventListener(
+    'input',
+    () => {
+        let currentSelectedTileId = "tileTitleId" + previousSelectedElementId.substring(6);
+        let currentSelectedTileNumber = parseInt(previousSelectedElementId.substring(6));
+        tilesTitleArray[currentSelectedTileNumber] = selectedTileTitle.innerText;
+        let currentSelectedTile = document.getElementById(currentSelectedTileId);
+        currentSelectedTile.innerText = shortenTile(tilesTitleArray[currentSelectedTileNumber]);
     }
 );
