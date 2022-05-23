@@ -20,10 +20,39 @@ let jsonFile = [
         "title": "interns-performance-report-may-2022.key"
     }
 ];
+
+/*
+var jsonFile = [];
+var n;
+
+
+fetch('./items.json')
+    .then(res => res.json())
+    .then(data => {
+        var n=data.length;
+        for(let i = 0;i < n; ++i){
+            let newObject = {
+                previewImage: ' ',
+                title: ' '
+            };
+            jsonFile.push(newObject);
+        }
+        console.log(jsonFile.length);
+        for(let each in data){
+            jsonFile.push(data[each]);
+        }
+    }
+    );
+
+console.log(jsonFile.length);
+*/
+
+
 let printText = document.querySelector(".tiles");
 var x = 0;
 let tilesTitleArray = [];
 
+// to make the title fit in the given space 
 shortenTile = (someString) => {
     if(someString.length > 35){
         someString = someString.substring(0,16) + "..." + someString.substring(someString.length -16);
@@ -32,21 +61,21 @@ shortenTile = (someString) => {
     return someString;
 }
 
+
 for(let each in jsonFile){
     let eachTileId = "tileId" + x;
     let eachTileTitleId = "tileTitleId" + x;
-    let tileTitle = jsonFile[each].title;
+    let tileTitle = jsonFile[x].title;
     tilesTitleArray.push(tileTitle);
 
     tileTitle = shortenTile(tilesTitleArray[x]);
-    console.log(tileTitle);
     printText.innerHTML = printText.innerHTML + `<div id="${eachTileId}" class="tileClass"><image src="${jsonFile[each].previewImage}" class="tileImage"> <p class="tileText" id="${eachTileTitleId}">${tileTitle}</p></div>`;
     
     x++;
 }
 x = 0;
 
-
+//selecting the first tile initially
 let initialSelectedElement = document.getElementById("tileId0");
 initialSelectedElement.style.backgroundColor = "blue";
 initialSelectedElement.style.color = "white"; 
@@ -60,7 +89,7 @@ initialSelectedElementTitle.innerText = tilesTitleArray[0];
 let previousSelectedElementId = "tileId0";
 
 
-
+//making click work on each tile
 for(let each in jsonFile){
     let eachTileId = "tileId" + x;
     let currentTile = document.getElementById(eachTileId);
@@ -88,6 +117,7 @@ for(let each in jsonFile){
     x++;
 }
 
+//can navigate using arrow keys
 window.addEventListener(
     "keydown",
     (event) => {
@@ -99,7 +129,7 @@ window.addEventListener(
         previousSelectedTileNumber = parseInt(previousSelectedTileNumber, 10);
         let selectedTileNumber , selectedTileId , selectedTile , selectedTileImage , selectedTileTitle, currentTileTitleId;
         switch(event.keyCode){
-            case 38:
+            case 38:    //for up arrow key
                 selectedTileNumber = previousSelectedTileNumber === 0 ? jsonFile.length -1 : previousSelectedTileNumber - 1;
                 selectedTileId = "tileId" + selectedTileNumber;
                 selectedTile = document.getElementById(selectedTileId);
@@ -115,13 +145,13 @@ window.addEventListener(
 
                 previousSelectedElementId = selectedTileId;
                 break;
-            case 40:
+            case 40:    //for down arrow key
                 selectedTileNumber = previousSelectedTileNumber === jsonFile.length - 1 ? 0 : previousSelectedTileNumber + 1;
                 selectedTileId = "tileId" + selectedTileNumber;
                 selectedTile = document.getElementById(selectedTileId);
                 selectedTile.style.backgroundColor = "blue";
                 selectedTile.style.color = "white";
-                
+
                 selectedTileImage = document.querySelector("#selectedTileImage");
                 selectedTileImage.innerHTML = `<img id="selectedTileImageEach" src="${jsonFile[selectedTileNumber].previewImage}">`;
                 
@@ -137,6 +167,7 @@ window.addEventListener(
 );
 
 
+//title is ediotable
 let selectedTileTitle = document.getElementById("selectedTileTitle");
 selectedTileTitle.addEventListener(
     'input',
